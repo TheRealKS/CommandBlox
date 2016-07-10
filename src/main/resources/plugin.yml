@@ -1,0 +1,6 @@
+main: com.koens.commandblox.CommandBlox
+name: CommandBlox
+version: 1.0
+commands:
+  cmdplace:
+    description: stuff
