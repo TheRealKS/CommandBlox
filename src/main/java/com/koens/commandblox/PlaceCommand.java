@@ -16,7 +16,7 @@ public class PlaceCommand implements CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         Player p = (Player) commandSender;
         if (p.hasMetadata("commandBlockSelected")) {
-            if (strings[0] != null) {
+            if (strings != null) {
                 //Loop through args to get the desired command
                 String commandToSet = "";
                 for (String part : strings) {
@@ -26,7 +26,6 @@ public class PlaceCommand implements CommandExecutor {
                     else
                         commandToSet += " " + part;
                 }
-                p.sendMessage(commandToSet + "!");
                 String[] locationvalues = p.getMetadata("commandBlockSelected").get(0).asString().split(",");
                 Location loc = new Location(p.getWorld(), Double.parseDouble(locationvalues[0]), Double.parseDouble(locationvalues[1]), Double.parseDouble(locationvalues[2]));
                 Block blocktoset = loc.getBlock();
@@ -34,10 +33,13 @@ public class PlaceCommand implements CommandExecutor {
                 CommandBlock cb = (CommandBlock) blocktoset.getState();
                 cb.setCommand(commandToSet);
                 cb.update();
-                p.sendMessage("Placed!");
+                p.sendMessage(ChatColor.LIGHT_PURPLE + "Command block placed!");
             }
             else {
-                p.sendMessage(ChatColor.LIGHT_PURPLE + "You must specify a command to be put into the command block!");
+                String[] locationvalues = p.getMetadata("commandBlockSelected").get(0).asString().split(",");
+                Location loc = new Location(p.getWorld(), Double.parseDouble(locationvalues[0]), Double.parseDouble(locationvalues[1]), Double.parseDouble(locationvalues[2]));
+                Block blocktoset = loc.getBlock();
+                blocktoset.setType(Material.COMMAND);
             }
         }
         else {

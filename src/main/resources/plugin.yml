@@ -4,3 +4,5 @@ version: 1.0
 commands:
   cmdplace:
     description: stuff
+  cmdinfo:
+    description: more stuff
